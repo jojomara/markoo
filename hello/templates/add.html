@@ -1,0 +1,24 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(135deg, #6dd5ed, #2193b0); height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div class="container1" style="background-color: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); max-width: 400px; width: 100%; text-align: center;">
+        <h1 style="color: #333; font-family: 'Arial Black', sans-serif; margin-bottom: 20px;">Add Member</h1>
+        <form action="{% url 'addrec' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="" style="color: #555; font-size: 16px; font-weight: bold;">First Name</label><br><br>
+            <input type="text" name="first" style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px;"><br>
+
+            <label for="" style="color: #555; font-size: 16px; font-weight: bold;">Last Name</label><br><br>
+            <input type="text" name="last" style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px;"><br>
+
+            <label for="" style="color: #555; font-size: 16px; font-weight: bold;">Country</label><br><br>
+            <input type="text" name="country" style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px;"><br>
+
+            <label for="" style="color: #555; font-size: 16px; font-weight: bold;">Photo</label><br><br>
+            <input type="file" name="photo" class="form-control" required style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px;"><br>
+
+            <button type="submit" id="new" style="width: 100%; padding: 12px; background-color: #5cb85c; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer;">Submit</button>
+        </form>
+    </div>
+</body>

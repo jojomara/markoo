@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: bisque;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: darkcyan;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar form {
+            margin: 0;
+            display: inline-block;
+        }
+
+        .navbar label, .navbar select, .navbar input[type="submit"] {
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .navbar select {
+            padding: 5px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .navbar input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #5cb85c;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .navbar input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .content {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            border-radius: 50%;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+        }
+
+        button#del {
+            background-color: #d9534f;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <form method="GET" action="/search/">
+            {% csrf_token %}
+            <label for="country">Country:</label>
+            <select name="country" id="country">
+                <option value="" selected disabled>Select a country</option>
+                <option value="Uganda">Uganda</option>
+                <option value="USA">USA</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Congo">Congo</option>
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    
+    <div class="content">
+        <center>
+            <h2>Members List</h2>
+            <hr>
+            <div class="container">
+                <h1>Members</h1>
+                <table id="customers" border="1">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Country</th>
+                            <th>Photo</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <td>{{ member.id }}</td>
+                            <td>{{ member.firstname }}</td>
+                            <td>{{ member.lastname }}</td>
+                            <td>{{ member.country }}</td>
+                            <td><img src="/static/images/{{ member.photo }}" alt="" width="100"></td>
+                            <td>
+                                <a href="update/{{ member.id}}"><button id="up">Update</button></a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete' member.id %}"><button id="del">Delete</button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'add' %}"><button id="new3">Add Member</button></a>                            
+            </div>
+            <br><br>
+        </center>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 JOYZ. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
